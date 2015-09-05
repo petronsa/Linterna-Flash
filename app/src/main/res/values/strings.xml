@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lintenta-Flash</string>
+
+    <string name="notificacion">Vover a Linterna-Flash</string>
+    <string name="error">No se puede acceder al flash!</string>
+    <string name="action_settings">Settings</string>
+</resources>
