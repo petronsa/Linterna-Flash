@@ -22,16 +22,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private Torch torch;
     private WakeLock wakeLock;
     private NotificationManager notificationManager;
+    ToggleButton boton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ToggleButton boton = (ToggleButton) findViewById(R.id.toggleButton);
+        boton = (ToggleButton) findViewById(R.id.toggleButton);
         boton.setOnClickListener(this);
-        
-        if (!initTorch())
+       /* if  ( boton.isChecked ())  {
+            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
+        }  else  {
+            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_apagada));
+        }*/
+
+
+    if (!initTorch())
         {
             return;
         }
@@ -40,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
 
         torch.on();
-
+        boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
 
         //Adquirir wake lock
 
@@ -82,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
         PendingIntent pedingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(getResources().getString(R.string.notificacion))
                 .setOngoing(true)
@@ -138,15 +145,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     @Override
     public void onClick(View view)
     {
+
         if (torch.isOn())
         {
             torch.off();
             destruirNotificacion();
+            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_apagada));
         }
         else
         {
             torch.on();
             createNotification();
+            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
         }
     }
 
