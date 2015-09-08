@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Linterna-Flash</string>
+    <string name="action_settings">Opciones</string>
+    <string name="error">No se puede acceder al flash!</string>
+    <string name="notificacion">Vover a Linterna-Flash</string>
+    <string name="pulsar_off">Pulsar para apagar</string>
+    <string name="pulsar_on">Pulsar para encender</string>
+</resources>

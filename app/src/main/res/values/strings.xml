@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">Lintenta-Flash</string>
-    <string name="notificacion">Vover a Linterna-Flash</string>
-    <string name="error">No se puede acceder al flash!</string>
-    <string name="action_settings">Opciones</string>
+    <string name="app_name">Torch-Flash</string>
+    <string name="notificacion">Back to Torch-Flash</string>
+    <string name="error">You can not access the flash!</string>
+    <string name="pulsar_on">Press to turn on</string>
+    <string name="pulsar_off">Press to turn off</string>
+    <string name="action_settings">Setting</string>
 </resources>

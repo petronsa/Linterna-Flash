@@ -13,8 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import com.startapp.android.publish.StartAppAd;
+import com.startapp.android.publish.StartAppSDK;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
@@ -23,19 +26,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     private WakeLock wakeLock;
     private NotificationManager notificationManager;
     ToggleButton boton;
+    TextView pulsar;
+    private StartAppAd startAppAd = new StartAppAd(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StartAppSDK.init(this, "101423750", "208444535", true);
         setContentView(R.layout.activity_main);
 
         boton = (ToggleButton) findViewById(R.id.toggleButton);
         boton.setOnClickListener(this);
-       /* if  ( boton.isChecked ())  {
-            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
-        }  else  {
-            boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_apagada));
-        }*/
+        pulsar = (TextView)findViewById(R.id.pulsar);
+
 
 
     if (!initTorch())
@@ -47,7 +50,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
 
         torch.on();
+        //imagen boton encendida
         boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
+        //Texto pulsar apagar
+        this.pulsar.setText((getResources().getString(R.string.pulsar_off)));
 
         //Adquirir wake lock
 
@@ -107,9 +113,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     {
         super.onBackPressed();
 
+
         //destruir notificacion
 
         destruirNotificacion();
+        //poner en marcha la publicidad al salir
+        MainActivity.this.startAppAd.showAd();
+        MainActivity.this.startAppAd.loadAd();
 
         //Apagar el flash
         torch.release();
@@ -120,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         wakeLock.release();
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -140,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     @Override
     public void onClick(View view)
@@ -150,13 +160,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         {
             torch.off();
             destruirNotificacion();
+            //cambiar imagen del boton
             boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_apagada));
+            //Texto pulsar encender
+            this.pulsar.setText((getResources().getString(R.string.pulsar_on)));
         }
         else
         {
             torch.on();
             createNotification();
+            //cambiar imagen del boton
             boton.setBackgroundDrawable(getResources().getDrawable(R.drawable.linterna_encendida));
+            //Texto pulsar apagar
+            this.pulsar.setText((getResources().getString(R.string.pulsar_off)));
         }
     }
 
@@ -183,4 +199,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             wakeLock.release();
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        startAppAd.onResume();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        startAppAd.onPause();
+    }
+
 }
