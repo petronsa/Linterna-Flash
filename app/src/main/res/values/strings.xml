@@ -5,4 +5,5 @@
     <string name="pulsar_on">Press to turn on</string>
     <string name="pulsar_off">Press to turn off</string>
     <string name="action_settings">Setting</string>
+    <string name="tiket">Torch-Flash on</string>
 </resources>

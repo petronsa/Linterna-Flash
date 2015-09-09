@@ -4,13 +4,12 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -96,11 +95,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         PendingIntent pedingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_stat_name)
+                .setTicker(getResources().getString(R.string.tiket))
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setContentText(getResources().getString(R.string.notificacion))
                 .setOngoing(true)
                 .setContentIntent(pedingIntent)
                 .build();
+
         notificationManager.notify(NOTIFICATION_ID,notification);
     }
 

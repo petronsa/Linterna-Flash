@@ -6,4 +6,5 @@
     <string name="notificacion">Vover a Linterna-Flash</string>
     <string name="pulsar_off">Pulsar para apagar</string>
     <string name="pulsar_on">Pulsar para encender</string>
+    <string name="tiket">Linterna-Flash encendida</string>
 </resources>
